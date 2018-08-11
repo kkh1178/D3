@@ -83,10 +83,12 @@ console.log("can you read me")
     circlesGroup.call(toolTip);
 
     circlesGroup.on("mouseover", function (data) {
-        toolTip.show(data, this).style('fill', 'pink');
+        d3.select(this).attr("fill", "red");
+        toolTip.show(data, this);
     })
         // onmouseout event
         .on("mouseout", function (data, index) {
+            d3.select(this).attr("fill", "blue");
             toolTip.hide(data);
         });
 
@@ -145,7 +147,24 @@ function successHandle(stateData) {
         .attr("cy", d => yLinearScale(d.income))
         .attr("r", 15)
         .attr("fill", "blue")
+        // .attr("text", d=>d.abbr)
         .attr("opacity", ".5");
+
+    // chartGroup.selectAll("text")
+    //     .data(stateData)
+    //     .enter()
+    //     .append("text")
+    //     .attr("x", d => xLinearScale(d[chosenXAxis]))
+    //     .attr("y", d => yLinearScale(d.income))
+    //     .text(d=>d.abbr)
+    //     .attr("font-family", "sans-serif")
+    //     .attr("font-size", "8px")
+    //     .attr("fill", "black");
+        
+        
+        // .append("text")
+        // .text(d => d.abbr);
+
     console.log("made it here 2")
     // Create group for  2 x- axis labels
     var labelsGroup = chartGroup.append("g")
@@ -206,7 +225,8 @@ function successHandle(stateData) {
                 if (chosenXAxis === "obesity") {
                     obesityLabel
                         .classed("active", true)
-                        .classed("inactive", false);
+                        .classed("inactive", false)
+                        .style("font", "bold");
                     smokerLabel
                         .classed("active", false)
                         .classed("inactive", true);
